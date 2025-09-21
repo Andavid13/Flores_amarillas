@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flores Amarillas</title>
+  <style>
+    body {
+      background: #fff8dc;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .bouquet {
+      display: grid;
+      grid-template-columns: repeat(4, auto); /* 4 columnas en escritorio */
+      gap: 32px;
+      margin-bottom: 30px;
+    }
+
+    .flower-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .flower {
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+
+    .petal {
+      position: absolute;
+      width: 40px;
+      height: 60px;
+      background: #ffeb3b;
+      border-radius: 50% 50% 0 0;
+      transform-origin: bottom center;
+      top: 10px;
+      left: 20px;
+    }
+
+    .center {
+      position: absolute;
+      top: 85%;
+      left: 50%;
+      width: 30px;
+      height: 30px;
+      background: #fbc02d;
+      border-radius: 50%;
+      border: 2px solid #333;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+
+    .stem {
+      width: 6px;
+      height: 60px;
+      background: #4caf50;
+      border-radius: 3px;
+      margin-top: 20px; /* Separación visual del tallo respecto a la flor */
+    }
+
+    #animatedMessage {
+      font-size: 1.4em;
+      color: #5d4037;
+      text-align: center;
+      max-width: 90%;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      min-height: 3em;
+    }
+
+    @media (max-width: 600px) {
+      .bouquet {
+        grid-template-columns: repeat(3, auto); /* 3 columnas en móvil */
+        gap: 16px;
+      }
+
+      .flower {
+        width: 50px;
+        height: 50px;
+      }
+
+      .petal {
+        width: 24px;
+        height: 36px;
+        left: 13px;
+        top: 6px;
+      }
+
+      .center {
+        width: 20px;
+        height: 20px;
+        top: 85%;
+      }
+
+      .stem {
+        height: 40px;
+        margin-top: 12px;
+      }
+
+      #animatedMessage {
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bouquet" id="bouquet"></div>
+
+  <div id="animatedMessage"></div>
+
+  <script>
+    const bouquet = document.getElementById('bouquet');
+    const message = "Que estas flores amarillas te recuerden que la alegría florece incluso en los pequeños detalles. 🌻✨";
+    const animatedMessage = document.getElementById('animatedMessage');
+
+    function createFlower() {
+      const container = document.createElement('div');
+      container.className = 'flower-container';
+
+      const flower = document.createElement('div');
+      flower.className = 'flower';
+
+      for (let i = 0; i < 6; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.style.transform = `rotate(${i * 60}deg)`;
+        flower.appendChild(petal);
+      }
+
+      const center = document.createElement('div');
+      center.className = 'center';
+      flower.appendChild(center);
+
+      const stem = document.createElement('div');
+      stem.className = 'stem';
+
+      container.appendChild(flower);
+      container.appendChild(stem);
+      bouquet.appendChild(container);
+    }
+
+    for (let i = 0; i < 12; i++) {
+      createFlower();
+    }
+
+    // Animación tipo máquina de escribir
+    let i = 0;
+    function typeWriter() {
+      if (i < message.length) {
+        animatedMessage.innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50);
+      }
+    }
+
+    setTimeout(typeWriter, 1000); // Comienza después de 1 segundo
+  </script>
+
+</body>
+</html>
